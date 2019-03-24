@@ -1,3 +1,3 @@
-export interface IHash {
-    [key: string]: string
+export interface Hash {
+  [key: string]: string
 }
