@@ -1,8 +1,8 @@
 export interface AppleMusicAddRequestEntity {
-  id: string
-  type: string
+  id: string;
+  type: string;
 }
 
 export interface AppleMusicAddRequest {
-  data: AppleMusicAddRequestEntity[]
+  data: AppleMusicAddRequestEntity[];
 }

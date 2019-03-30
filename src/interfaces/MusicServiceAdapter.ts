@@ -1,5 +1,13 @@
+import { SongInfo } from './SongInfo';
+import { Playlist } from './Playlist';
+import { UserInfo } from './UserInfo';
+
 export interface MusicServiceAdapter {
   getName (): string;
-  parseSongIdFromLink (link: string): string|null;
-  addSongToPlaylist (songId: string, playlistId: string, userToken: string): Promise<any>;
+  isTheSame (adapter: MusicServiceAdapter): boolean;
+  getSongInfo (link: string): Promise<SongInfo>;
+  getSongInfoRemote (link: string): Promise<SongInfo>;
+  addSong (song: SongInfo, playlist: Playlist): Promise<any>;
+  searchAndAddSong (song: SongInfo, playlist: Playlist): Promise<boolean>;
+  setUserInfo (userInfo: UserInfo): this;
 }
