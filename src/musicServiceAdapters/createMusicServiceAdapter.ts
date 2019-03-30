@@ -1,27 +1,28 @@
-import fetch from 'node-fetch';
 import { MusicServiceAdapter } from '../interfaces';
 import AppleMusicAdapter from './AppleMusicAdapter';
 import GoogleMusicAdapter from './GoogleMusicAdapter';
+import { urlPatterns } from '../constants/urls';
+import { ProviderTypes } from '../constants/providerTypes';
 
 interface MusicServicePattern {
   regExp: RegExp;
-  createService: (options) => MusicServiceAdapter;
+  createService: () => MusicServiceAdapter;
 }
 
 const patterns: Array<MusicServicePattern> = [
   {
-    regExp: /^https:\/\/itunes.apple.com/,
-    createService: (options) => new AppleMusicAdapter(options),
+    regExp: urlPatterns[ProviderTypes.APPLE_PROVIDER_TYPE],
+    createService: () => new AppleMusicAdapter(),
   }, {
-    regExp: /^https:\/\/play.google.com/,
-    createService: (options) => new GoogleMusicAdapter(options),
+    regExp: urlPatterns[ProviderTypes.GOOGLE_PROVIDER_TYPE],
+    createService: () => new GoogleMusicAdapter(),
   }
 ];
 
 export default (link: string): MusicServiceAdapter|null => {
   for (let i = 0; i < patterns.length; i++) {
     if (patterns[i].regExp.test(link)) {
-      return patterns[i].createService({ httpClient: fetch });
+      return patterns[i].createService();
     }
   }
 
