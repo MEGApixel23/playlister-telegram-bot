@@ -5,5 +5,6 @@ export interface SongInfo {
   adapterType: ProviderTypes;
   meta: {
     title?: string;
+    link?: string;
   };
 }
