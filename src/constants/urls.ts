@@ -1,4 +1,4 @@
-import { ProviderTypes } from './ProviderTypes';
+import { ProviderTypes } from './providerTypes';
 
 export const urlPatterns = {
   [ProviderTypes.APPLE_PROVIDER_TYPE]: /(https:\/\/itunes.apple.com\S+)/,
