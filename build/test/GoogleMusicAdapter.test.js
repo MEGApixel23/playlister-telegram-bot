@@ -22,5 +22,12 @@ describe('GoogleMusicAdapter', () => {
         chai_1.expect(remoteSongInfo.meta).to.be.not.empty;
         chai_1.expect(remoteSongInfo.meta.title).to.be.equal('Summer Sun - Cari Cari');
     }));
+    it('gets song information with special chars by google music link', () => __awaiter(this, void 0, void 0, function* () {
+        const adapter = new GoogleMusicAdapter_1.default();
+        const remoteSongInfo = yield adapter.getSongInfoRemote('https://play.google.com/music/m/T7hr6ohuqcuqnmwmw23m6wbkroq?t=Baba_O_Riley_-_The_Who');
+        chai_1.expect(remoteSongInfo).to.be.not.empty;
+        chai_1.expect(remoteSongInfo.meta).to.be.not.empty;
+        chai_1.expect(remoteSongInfo.meta.title).to.be.equal('Baba O\'Riley - The Who');
+    }));
 });
 //# sourceMappingURL=GoogleMusicAdapter.test.js.map

@@ -11,6 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const node_fetch_1 = require("node-fetch");
 const BasicAdapter_1 = require("./BasicAdapter");
 const providerTypes_1 = require("../constants/providerTypes");
+const util_1 = require("../util");
 class GoogleMusicAdapter extends BasicAdapter_1.default {
     constructor({ httpClient = null } = {}) {
         super({ name: providerTypes_1.ProviderTypes.GOOGLE_PROVIDER_TYPE });
@@ -29,17 +30,16 @@ class GoogleMusicAdapter extends BasicAdapter_1.default {
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield this.httpClient(link, { method: 'GET' });
             const content = yield response.text();
-            const title = /og:title" content="(.+?)"\/>/;
-            const match = content.match(title);
+            const titlePattern = /og:title" content="(.+?)"\/>/;
+            const match = content.match(titlePattern);
             if (!match || !match[1]) {
                 return null;
             }
+            const title = util_1.decodeHtmlEntities(match[1]);
             return {
                 id: null,
                 adapterType: providerTypes_1.ProviderTypes.GOOGLE_PROVIDER_TYPE,
-                meta: {
-                    title: match[1]
-                },
+                meta: { title }
             };
         });
     }

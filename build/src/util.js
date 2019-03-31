@@ -11,4 +11,5 @@ exports.extractUrl = (message) => {
     }
     return null;
 };
+exports.decodeHtmlEntities = (input) => (input.replace(/&#(\d+);/g, (match, dec) => String.fromCharCode(dec)));
 //# sourceMappingURL=util.js.map
