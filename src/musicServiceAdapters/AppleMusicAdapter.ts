@@ -34,7 +34,7 @@ export default class AppleMusicAdapter extends BasicAdapter implements MusicServ
     };
   }
 
-  async addSong (song: SongInfo, playlist: Playlist): Promise<any> {
+  async addSong (song: SongInfo, playlist: Playlist): Promise<boolean> {
     return this.addSongToPlaylist(song.id, playlist.id);
   }
 
@@ -50,9 +50,8 @@ export default class AppleMusicAdapter extends BasicAdapter implements MusicServ
       adapterType: ProviderTypes.APPLE_PROVIDER_TYPE,
       meta: {}
     };
-    const { ok } = await this.addSong(appleSongInfo, playlist);
 
-    return ok;
+    return this.addSong(appleSongInfo, playlist);
   }
 
   private parseSongIdFromLink (link: string): string|null {
@@ -66,7 +65,7 @@ export default class AppleMusicAdapter extends BasicAdapter implements MusicServ
     return null;
   }
 
-  private addSongToPlaylist (songId: string, playlistId: string): Promise<any> {
+  private async addSongToPlaylist (songId: string, playlistId: string): Promise<boolean> {
     const url: string = `${this.baseApiUrl}/me/library/playlists/${playlistId}/tracks`;
     const body: AppleMusicAddRequest = {
       data: [{
@@ -74,12 +73,13 @@ export default class AppleMusicAdapter extends BasicAdapter implements MusicServ
         type: 'songs',
       }]
     };
-
-    return this.httpClient(url, {
+    const { ok } = await this.httpClient(url, {
       headers: this.getAuthHeaders(this.userInfo.appleUserToken),
       method: 'POST',
       body: JSON.stringify(body)
     });
+
+    return ok;
   }
 
   private async searchSongId (song: SongInfo): Promise<string> {

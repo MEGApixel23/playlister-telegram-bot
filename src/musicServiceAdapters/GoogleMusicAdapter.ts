@@ -42,7 +42,7 @@ export default class GoogleMusicAdapter extends BasicAdapter implements MusicSer
     };
   }
 
-  addSong (song: SongInfo, playlist: Playlist): Promise<any> {
+  addSong (song: SongInfo, playlist: Playlist): Promise<boolean> {
     throw new Error('Not implemented');
   }
 

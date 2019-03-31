@@ -7,7 +7,7 @@ export interface MusicServiceAdapter {
   isTheSame (adapter: MusicServiceAdapter): boolean;
   getSongInfo (link: string): Promise<SongInfo>;
   getSongInfoRemote (link: string): Promise<SongInfo>;
-  addSong (song: SongInfo, playlist: Playlist): Promise<any>;
+  addSong (song: SongInfo, playlist: Playlist): Promise<boolean>;
   searchAndAddSong (song: SongInfo, playlist: Playlist): Promise<boolean>;
   setUserInfo (userInfo: UserInfo): this;
 }

@@ -24,7 +24,7 @@ abstract class BasicAdapter implements MusicServiceAdapter {
 
   abstract getSongInfo (link: string): Promise<SongInfo>;
   abstract getSongInfoRemote (link: string): Promise<SongInfo>;
-  abstract addSong (song: SongInfo, playlist: Playlist): Promise<any>;
+  abstract addSong (song: SongInfo, playlist: Playlist): Promise<boolean>;
   abstract searchAndAddSong (song: SongInfo, playlist: Playlist): Promise<boolean>;
 }
 
