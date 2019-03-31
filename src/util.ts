@@ -13,3 +13,7 @@ export const extractUrl = (message): string => {
 
   return null;
 };
+
+export const decodeHtmlEntities = (input: string): string => (
+  input.replace(/&#(\d+);/g, (match, dec) => String.fromCharCode(dec))
+);
