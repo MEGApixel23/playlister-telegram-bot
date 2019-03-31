@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { extractUrl } from '../src/util';
+import { extractUrl, decodeHtmlEntities, isCommandMessage } from '../src/util';
 
 const messages = [
   [
@@ -21,5 +21,14 @@ describe('util', () => {
 
       expect(url).to.be.equal(messages[i][1]);
     }
+  });
+
+  it('correctly decodes HTML entities to symbols', () => {
+    expect(decodeHtmlEntities('&#39;')).to.be.equal('\'');
+  });
+
+  it('separates command messages from regular messages', () => {
+    expect(isCommandMessage('/start something')).to.be.true;
+    expect(isCommandMessage('simple message')).to.be.false;
   });
 });

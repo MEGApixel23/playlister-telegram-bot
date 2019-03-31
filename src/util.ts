@@ -17,3 +17,5 @@ export const extractUrl = (message): string => {
 export const decodeHtmlEntities = (input: string): string => (
   input.replace(/&#(\d+);/g, (match, dec) => String.fromCharCode(dec))
 );
+
+export const isCommandMessage = (message: string): boolean => /^\/.+/.test(message);
