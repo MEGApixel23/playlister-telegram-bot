@@ -21,12 +21,20 @@ describe('GoogleMusicAdapter', () => {
 
   it('gets song information with special chars by google music link', async () => {
     const adapter = new GoogleMusicAdapter();
-    const remoteSongInfo = await adapter.getSongInfoRemote(
+    let remoteSongInfo = await adapter.getSongInfoRemote(
       'https://play.google.com/music/m/T7hr6ohuqcuqnmwmw23m6wbkroq?t=Baba_O_Riley_-_The_Who'
     );
 
     expect(remoteSongInfo).to.be.not.empty;
     expect(remoteSongInfo.meta).to.be.not.empty;
     expect(remoteSongInfo.meta.title).to.be.equal('Baba O\'Riley - The Who');
+
+    remoteSongInfo = await adapter.getSongInfoRemote(
+      'https://play.google.com/music/m/T4pngwdk4gmzf36xv4mjyqnjaf4?t=Milk_Coffee_-_NoMBe'
+    );
+
+    expect(remoteSongInfo).to.be.not.empty;
+    expect(remoteSongInfo.meta).to.be.not.empty;
+    expect(remoteSongInfo.meta.title).to.be.equal('Milk & Coffee - NoMBe');
   });
 });
