@@ -5,24 +5,26 @@ import { urlPatterns } from '../constants/urls';
 import { ProviderTypes } from '../constants/providerTypes';
 
 interface MusicServicePattern {
-  regExp: RegExp;
+  regExps: RegExp[];
   createService: () => MusicServiceAdapter;
 }
 
 const patterns: Array<MusicServicePattern> = [
   {
-    regExp: urlPatterns[ProviderTypes.APPLE_PROVIDER_TYPE],
+    regExps: urlPatterns[ProviderTypes.APPLE_PROVIDER_TYPE],
     createService: () => new AppleMusicAdapter(),
   }, {
-    regExp: urlPatterns[ProviderTypes.GOOGLE_PROVIDER_TYPE],
+    regExps: urlPatterns[ProviderTypes.GOOGLE_PROVIDER_TYPE],
     createService: () => new GoogleMusicAdapter(),
   }
 ];
 
 export default (link: string): MusicServiceAdapter|null => {
   for (let i = 0; i < patterns.length; i++) {
-    if (patterns[i].regExp.test(link)) {
-      return patterns[i].createService();
+    for (let j = 0; j < patterns[i].regExps.length; j++) {
+      if (patterns[i].regExps[j].test(link)) {
+        return patterns[i].createService();
+      }
     }
   }
 

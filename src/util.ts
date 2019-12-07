@@ -4,10 +4,12 @@ export const extractUrl = (message): string => {
   const keys = Object.keys(urlPatterns);
 
   for (let i = 0; i < keys.length; i++) {
-    const match = message.match(urlPatterns[keys[i]]);
+    for (let j = 0; j < urlPatterns[keys[i]].length; j++) {
+      const match = message.match(urlPatterns[keys[i]][j]);
 
-    if (match && match[0]) {
-      return match[0];
+      if (match && match[0]) {
+        return match[0];
+      }
     }
   }
 

@@ -50,4 +50,22 @@ describe('addSong handler', function () {
       expect(message.text).to.be.equal(messages[i].output);
     }
   });
+
+  it('correctly processes new Apple music link format', async () => {
+    const handler = addSong(botStub);
+    const incomingMessage = {
+      input: <TelegramBot.Message><any> {
+        chat: {
+          id: 'chat-id'
+        },
+        text: 'Some message https://music.apple.com/ua/album/lovely/986194842?i=986194846&l=ru test',
+      },
+      output: 'Song was successfully added to playlist',
+    };
+
+    const message = await handler(incomingMessage.input);
+
+    expect(message).to.have.key('text');
+    expect(message.text).to.be.equal(incomingMessage.output);
+  });
 });
