@@ -11,5 +11,21 @@ exports.extractUrl = (message) => {
     }
     return null;
 };
-exports.decodeHtmlEntities = (input) => (input.replace(/&#(\d+);/g, (match, dec) => String.fromCharCode(dec)));
+const entities = {
+    'amp': '&',
+    'apos': '\'',
+    'lt': '<',
+    'gt': '>',
+    'quot': '"',
+    'nbsp': '\xa0'
+};
+const entityPattern = /&([a-z]+);/ig;
+exports.decodeHtmlEntities = (input) => (input.replace(entityPattern, (match, entity) => {
+    entity = entity.toLowerCase();
+    if (entities.hasOwnProperty(entity)) {
+        return entities[entity];
+    }
+    return match;
+})
+    .replace(/&#(\d+);/g, (match, dec) => String.fromCharCode(dec)));
 //# sourceMappingURL=util.js.map
