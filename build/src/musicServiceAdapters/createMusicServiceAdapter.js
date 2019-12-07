@@ -6,17 +6,19 @@ const urls_1 = require("../constants/urls");
 const providerTypes_1 = require("../constants/providerTypes");
 const patterns = [
     {
-        regExp: urls_1.urlPatterns[providerTypes_1.ProviderTypes.APPLE_PROVIDER_TYPE],
+        regExps: urls_1.urlPatterns[providerTypes_1.ProviderTypes.APPLE_PROVIDER_TYPE],
         createService: () => new AppleMusicAdapter_1.default(),
     }, {
-        regExp: urls_1.urlPatterns[providerTypes_1.ProviderTypes.GOOGLE_PROVIDER_TYPE],
+        regExps: urls_1.urlPatterns[providerTypes_1.ProviderTypes.GOOGLE_PROVIDER_TYPE],
         createService: () => new GoogleMusicAdapter_1.default(),
     }
 ];
 exports.default = (link) => {
     for (let i = 0; i < patterns.length; i++) {
-        if (patterns[i].regExp.test(link)) {
-            return patterns[i].createService();
+        for (let j = 0; j < patterns[i].regExps.length; j++) {
+            if (patterns[i].regExps[j].test(link)) {
+                return patterns[i].createService();
+            }
         }
     }
     return null;

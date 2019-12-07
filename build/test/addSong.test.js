@@ -53,5 +53,20 @@ describe('addSong handler', function () {
             chai_1.expect(message.text).to.be.equal(messages[i].output);
         }
     }));
+    it('correctly processes new Apple music link format', () => __awaiter(this, void 0, void 0, function* () {
+        const handler = handlers_1.addSong(botStub);
+        const incomingMessage = {
+            input: {
+                chat: {
+                    id: 'chat-id'
+                },
+                text: 'Some message https://music.apple.com/ua/album/lovely/986194842?i=986194846&l=ru test',
+            },
+            output: 'Song was successfully added to playlist',
+        };
+        const message = yield handler(incomingMessage.input);
+        chai_1.expect(message).to.have.key('text');
+        chai_1.expect(message.text).to.be.equal(incomingMessage.output);
+    }));
 });
 //# sourceMappingURL=addSong.test.js.map

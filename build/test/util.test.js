@@ -21,5 +21,12 @@ describe('util', () => {
             chai_1.expect(url).to.be.equal(messages[i][1]);
         }
     });
+    it('correctly decodes HTML entities to symbols', () => {
+        chai_1.expect(util_1.decodeHtmlEntities('&#39;')).to.be.equal('\'');
+    });
+    it('separates command messages from regular messages', () => {
+        chai_1.expect(util_1.isCommandMessage('/start something')).to.be.true;
+        chai_1.expect(util_1.isCommandMessage('simple message')).to.be.false;
+    });
 });
 //# sourceMappingURL=util.test.js.map
