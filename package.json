@@ -1,7 +1,7 @@
 {
   "name": "music-telegram-bot",
   "author": "Igor Omelchenko",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "scripts": {
     "start": "yarn run env:dev && nodemon --config nodemon-debug.json",
