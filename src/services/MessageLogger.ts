@@ -16,6 +16,7 @@ export default class MessageLogger {
         'userId.env': `${msg.from.id}.dev`,
         datetime: new Date().toISOString(),
         user: msg.from,
+        text: msg.text,
       }
     }).promise();
   }
